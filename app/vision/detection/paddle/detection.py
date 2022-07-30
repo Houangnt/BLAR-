@@ -37,7 +37,7 @@ class PaddleOcrDetector(DetectionBase):
             print(f'txt {txt}')
             # txt_detection_results.append(TextDetection(coordinate=txt, version=self._version))
             results.append({'image' : img0,
-                            'coordinates' : TextDetection(coordinate=txt, version=self._version).coordinate })
+                            'coordinates' : [txt] })
         #print(results)
         return results
 
