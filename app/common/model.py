@@ -27,16 +27,16 @@ class RecognitionResults:
 
 @dataclass_json(letter_case=LetterCase.SNAKE)
 @dataclass
-class BarcodeResults:
+class BLARResults:
     org_img: np.array
-    barcodes: List[str]
+    plate: List[str]
 
 
 @dataclass_json(letter_case=LetterCase.SNAKE)
 @dataclass
 class DetectionResult2:
     org_img: np.array
-    barcodes: np.array
+    plate: np.array
 
 
 # Paddle
