@@ -19,12 +19,9 @@ def predict(opt):
             #image_name = os.path.split(image_path)[-1]
             result = algorithm.process(org_img=img)
             fw.write(f'{image_name}')
-            # for barcode in result.barcodes:
-            #     fw.write(f'\t{barcode}')
-
-            for index, barcode in enumerate(result.barcodes):
-                #cv2.imwrite(f'{index}.jpg', barcode)
-                cv2.imwrite(os.path.join('./results', f'{image_name}'), barcode)
+            for index, plate in enumerate(result.plates):
+                #cv2.imwrite(f'{index}.jpg', plate)
+                cv2.imwrite(os.path.join('./results', f'{image_name}'), plate)
             fw.write('\n')
 
 
