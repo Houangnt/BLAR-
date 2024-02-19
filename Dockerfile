@@ -1,16 +1,21 @@
-FROM python:3.8.12
+FROM paddlepaddle/paddle:2.4.1-gpu-cuda11.7-cudnn8.4-trt8.4
 
-RUN apt-get update && apt-get install curl ffmpeg libsm6 libxext6 ssh git locales -y \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y
+RUN apt-get install python3.8 -y
+RUN apt-get install python3-pip -y
+RUN python3.8 -m pip install --upgrade pip
+RUN apt-get install 'ffmpeg'\
+    'libsm6'\
+    'libxext6'  -y
+RUN apt-get install python3.8-dev -y
+
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 
 WORKDIR /app-src
 
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+RUN python3.8 -m pip install paddlepaddle-gpu==2.4.1.post117 -f https://www.paddlepaddle.org.cn/whl/linux/mkl/avx/stable.html
 
-ENV TZ=Asia/Ho_Chi_Minh
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+COPY . /app-src/
 
-COPY . .
-
-CMD ["python", "pipeline.py"]
+RUN python3.8 -m pip install -r requirements.txt
